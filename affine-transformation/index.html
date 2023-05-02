@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Affine Transformation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.11/paper-full.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+    <script src="https://unpkg.com/mathjs@11.8.0/lib/browser/math.js"></script>
+    <link rel="stylesheet" href="affine.css">
+</head>
+<body>
+<div class="draw">
+    <h3>Image</h3>
+    <canvas id="original" width="500" height="500"></canvas>
+</div>
+<div>
+    <div id="matrix"></div>
+    <br>
+    <br>
+    <label for="a">a:</label>
+    <input type="number" id="a" value="1" step="0.1">
+    <label for="b">b:</label>
+    <input type="number" id="b" value="0" step="0.1">
+    <label for="c">c:</label>
+    <input type="number" id="c" value="0" step="10">
+    <br>
+    <label for="d">d:</label>
+    <input type="number" id="d" value="0" step="0.1">
+    <label for="e">e:</label>
+    <input type="number" id="e" value="1" step="0.1">
+    <label for="f">f:</label>
+    <input type="number" id="f" value="0" step="10">
+</div>
+<div class="draw">
+    <h3>Map</h3>
+    <canvas id="transformed" width="500" height="500"></canvas>
+</div>
+
+
+<script src="affine-transformation.js"></script>
+</body>
+</html>
