@@ -6,14 +6,35 @@ var transformedPaper = new paper.PaperScope();
 transformedPaper.setup(transformedCanvas);
 
 // Define the points you want to transfor
-var point_spacing = 10; // The amount of space between the points
-var points = [];
-var size = 20;
+const point_spacing = 10; // The amount of space between the points
+const radius = 5;
+const size = 9;
+const x_offset = 0;
+const y_offset = 0;
+var circles = [];
+
+var colors = [
+    '#f77189',
+    '#dc8932',
+    '#ae9d31',
+    '#77ab31',
+    '#33b07a',
+    '#36ada4',
+    '#38a9c5',
+    '#6e9bf4',
+    '#cc7af4',
+    '#f565cc'
+]
+
 for (var x = 0; x < size; x++) {
     for (var y = 0; y < size; y++) {
-        // Create a new point at the current position
-        var point = new paper.Point(x * point_spacing, y * point_spacing);
-        points.push(point);
+        var circle = new paper.Path.Circle({
+            center: new paper.Point(x * point_spacing + x_offset, y * point_spacing + y_offset),
+            radius: radius,
+            fillColor: colors[x],
+            parent: paper.project.activeLayer
+        });
+        circles.push(circle);
     }
 }
 
@@ -53,28 +74,17 @@ function matrixUpdate() {
     );
 
     // Apply the affine-transformation matrix to the points
-    var transformedPoints = points.map(function (point) {
-        var newPoint = math.multiply(affine_matrix, math.matrix([[point.x], [point.y], [1]]));
-        return new paper.Point(newPoint._data[0][0], newPoint._data[1][0]);
-    });
+    var transformedPoints = circles.map(function (point) {
 
-    // Make the thingis that will be painted
-    var circles1 = points.map(function (point) {
+        var newPoint = math.multiply(affine_matrix, math.matrix([[point.position.x], [point.position.y], [1]]));
+
         return new paper.Path.Circle({
-            center: point,
-            radius: 2,
-            fillColor: 'black',
-            parent: paper.project.activeLayer
-        });
-    });
-    var circles2 = transformedPoints.map(function (point) {
-        return new transformedPaper.Path.Circle({
-            center: point,
-            radius: 2,
-            fillColor: 'black',
+            center: new paper.Point(newPoint._data[0][0], newPoint._data[1][0]),
+            radius: radius,
+            fillColor: point.fillColor,
             parent: transformedPaper.project.activeLayer
         });
-    });
+    })
 
     // Draw the paths on the canvas
     paper.view.draw();
