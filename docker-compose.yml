@@ -1,14 +1,27 @@
 
 version:  '3.8'
 services:
-  -notebooks:
+  py11:
         build:
           context: .
-          dockerfile: Dockerfile
+          args:
+          - CONDA_ENV_FILE=environment11.yml
         volumes:
           - ./data:/home/mambauser/data
           - ./examples:/home/mambauser/examples
           - ./notebooks:/home/mambauser/notebooks
         ports:
           - 8888:8888
-        container_name: pygis
+        container_name: pygis311
+  py9:
+        build:
+          context: .
+          args:
+          - CONDA_ENV_FILE=environment9.yml
+        volumes:
+          - ./data:/home/mambauser/data
+          - ./examples:/home/mambauser/examples
+          - ./notebooks:/home/mambauser/notebooks
+        ports:
+          - 8888:8888
+        container_name: pygis39

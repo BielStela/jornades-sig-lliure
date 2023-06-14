@@ -1,6 +1,8 @@
-FROM mambaorg/micromamba:0.27.0 AS base
+FROM mambaorg/micromamba:1.4.3
 
-COPY --chown=$MAMBA_USER:$MAMBA_USER environment.yml /tmp/environment.yml
+ARG CONDA_ENV_FILE
+
+COPY --chown=$MAMBA_USER:$MAMBA_USER ${CONDA_ENV_FILE} /tmp/environment.yml
 
 RUN micromamba install -n base --yes --file /tmp/environment.yml && \
     micromamba clean --all --yes
@@ -12,6 +14,5 @@ ARG MAMBA_DOCKERFILE_ACTIVATE=1
 EXPOSE 8888
 WORKDIR /home/$MAMBA_USER
 
-FROM base AS dev
 
 ENTRYPOINT ["/usr/local/bin/_entrypoint.sh", "jupyter", "lab", "--ip=0.0.0.0","--allow-root", "--no-browser"]
