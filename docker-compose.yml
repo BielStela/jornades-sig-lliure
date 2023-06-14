@@ -1,0 +1,14 @@
+
+version:  '3.8'
+services:
+  -notebooks:
+        build:
+          context: .
+          dockerfile: Dockerfile
+        volumes:
+          - ./data:/home/mambauser/data
+          - ./examples:/home/mambauser/examples
+          - ./notebooks:/home/mambauser/notebooks
+        ports:
+          - 8888:8888
+        container_name: pygis
