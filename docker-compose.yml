@@ -2,26 +2,34 @@
 version:  '3.8'
 services:
   py11:
-        build:
-          context: .
-          args:
-          - CONDA_ENV_FILE=environment11.yml
-        volumes:
-          - ./data:/home/mambauser/data
-          - ./examples:/home/mambauser/examples
-          - ./notebooks:/home/mambauser/notebooks
-        ports:
-          - 8888:8888
-        container_name: pygis311
+    build:
+      context: .
+      args:
+      - CONDA_ENV_FILE=environment11.yml
+    volumes:
+      - ./data:/home/mambauser/data
+      - ./examples:/home/mambauser/examples
+      - ./notebooks:/home/mambauser/notebooks
+    ports:
+      - 8888:8888
+    container_name: pygis311
   py9:
-        build:
-          context: .
-          args:
-          - CONDA_ENV_FILE=environment9.yml
-        volumes:
-          - ./data:/home/mambauser/data
-          - ./examples:/home/mambauser/examples
-          - ./notebooks:/home/mambauser/notebooks
-        ports:
-          - 8888:8888
-        container_name: pygis39
+    build:
+      context: .
+      args:
+      - CONDA_ENV_FILE=environment9.yml
+    volumes:
+      - ./data:/home/mambauser/data
+      - ./examples:/home/mambauser/examples
+      - ./notebooks:/home/mambauser/notebooks
+    ports:
+      - 8888:8888
+    container_name: pygis39
+  tiler:
+    image: ghcr.io/developmentseed/titiler:latest
+    environment:
+      - PORT=8000
+    volumes:
+      - ./data:/data
+    ports:
+      - 8000:8000
