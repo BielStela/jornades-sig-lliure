@@ -5,7 +5,7 @@ To run the notebook we will need two environments. Almost everything can be ran 
 docker compose up py11
 ```
 
-The notebook `cogs.ipynb` needs a special environment because of a recent dependenci update wreckage :(
+The notebook `cogs.ipynb` needs a special environment because of a recent dependency update wreckage :(
 
 
 ```
